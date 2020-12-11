@@ -16,6 +16,11 @@
 // Global Variables
 //
 
+// Mouse variables
+
+var drag = false;
+var old_x = 0, old_y = 0;
+
 var gl = null; // WebGL context
 
 var shaderProgram = null;
@@ -42,7 +47,7 @@ var tz = 0.0;
 
 // The rotation angles in degrees
 
-var angleXX = 0.0;
+var angleXX = 30.0;
 
 var angleYY = 0.0;
 
@@ -66,19 +71,19 @@ var globalRotationYY_SPEED = 1;
 
 // NEW - Local Animation controls
 
-var rotationXX_ON = 1;
+var rotationXX_ON = 0;
 
 var rotationXX_DIR = 1;
 
 var rotationXX_SPEED = 1;
  
-var rotationYY_ON = 1;
+var rotationYY_ON = 0;
 
 var rotationYY_DIR = 1;
 
 var rotationYY_SPEED = 1;
  
-var rotationZZ_ON = 1;
+var rotationZZ_ON = 0;
 
 var rotationZZ_DIR = 1;
 
@@ -98,123 +103,98 @@ var vertices = [
 
 		// FRONT FACE
 		 
-		-1.00, -1.00,  1.00,
+		-1.00, -0.05,  1.00,
 		 
-		 1.00, -1.00,  1.00,
+		 1.00, -0.05,  1.00,
 		 
-		 1.00, -0.90,  1.00,
+		 1.00,  0.05,  1.00,
 
 		 
-		 1.00, -0.90,  1.00,
+		 1.00,  0.05,  1.00,
 		 
-		-1.00, -0.90,  1.00,
+		-1.00,  0.05,  1.00,
 		 
-		-1.00, -1.00,  1.00,
+		-1.00, -0.05,  1.00,
 		
 		// TOP FACE
 		
-		-1.00, -0.90,  1.00,
+		-1.00,  0.05,  1.00,
 		 
-		 1.00, -0.90,  1.00,
+		 1.00,  0.05,  1.00,
 		 
-		 1.00, -0.90, -1.00,
+		 1.00,  0.05, -1.00,
 
 		 
-		 1.00, -0.90, -1.00,
+		 1.00,  0.05, -1.00,
 		 
-		-1.00, -0.90, -1.00,
+		-1.00,  0.05, -1.00,
 		 
-		-1.00, -0.90,  1.00,
+		-1.00,  0.05,  1.00,
 		
 		// BOTTOM FACE 
 		
-		-1.00, -1.00, -1.00,
+		-1.00, -0.05, -1.00,
 		 
-		 1.00, -1.00, -1.00,
+		 1.00, -0.05, -1.00,
 		 
-		 1.00, -1.00,  1.00,
+		 1.00, -0.05,  1.00,
 
 		 
-		 1.00, -1.00,  1.00,
+		 1.00, -0.05,  1.00,
 		 
-		-1.00, -1.00,  1.00,
+		-1.00, -0.05,  1.00,
 		 
-		-1.00, -1.00, -1.00,
+		-1.00, -0.05, -1.00,
 		
 		// LEFT FACE 
 		
-		-1.00, -0.90,  1.00,
+		-1.00,  0.05,  1.00,
 		 
-		-1.00, -1.00, -1.00,
+		-1.00, -0.05, -1.00,
 
-		-1.00, -1.00,  1.00,
+		-1.00, -0.05,  1.00,
 		 
 		 
-		-1.00, -0.90,  1.00,
+		-1.00,  0.05,  1.00,
 		 
-		-1.00, -0.90, -1.00,
+		-1.00,  0.05, -1.00,
 		 
-		-1.00, -1.00, -1.00,
+		-1.00, -0.05, -1.00,
 		
 		// RIGHT FACE 
 		
-		 1.00, -0.90, -1.00,
+		 1.00,  0.05, -1.00,
 		 
-		 1.00, -1.00,  1.00,
+		 1.00, -0.05,  1.00,
 
-		 1.00, -1.00, -1.00,
+		 1.00, -0.05, -1.00,
 		 
 		 
-		 1.00, -0.90, -1.00,
+		 1.00,  0.05, -1.00,
 		 
-		 1.00, -0.90,  1.00,
+		 1.00,  0.05,  1.00,
 		 
-		 1.00, -1.00,  1.00,
+		 1.00, -0.05,  1.00,
 		
 		// BACK FACE 
 		
-		-1.00, -0.90, -1.00,
+		-1.00,  0.05, -1.00,
 		 
-		 1.00, -1.00, -1.00,
+		 1.00, -0.05, -1.00,
 
-		-1.00, -1.00, -1.00,
+		-1.00, -0.05, -1.00,
 		 
 		 
-		-1.00, -0.90, -1.00,
+		-1.00,  0.05, -1.00,
 		 
-		 1.00, -0.90, -1.00,
+		 1.00, 0.05, -1.00,
 		 
-		 1.00, -1.00, -1.00,	
+		 1.00, -0.05, -1.00,	
 		 
 		 // FRONT WALL
 
-		-1.00, -0.90, 1.00,
-		  
-		 1.00, -0.90, 1.00,
-		  
-		 1.00, -0.70, 1.00,
-
-
-		 1.00, -0.70, 1.00,
-
-		-1.00, -0.70, 1.00,
-
-		-1.00, -0.90, 1.00,
-
 		// BACK WALL
 
-		-1.00, -0.90, -1.00,
-		 
-		 1.00, -0.90, -1.00,
-
-		 1.00, -0.70, -1.00,
-
-
-		 1.00, -0.70, -1.00,
-
-		-1.00, -0.70, -1.00,
-
-		-1.00, -0.90, -1.00
 ];
 
 // And their colour
@@ -223,26 +203,26 @@ var colors = [
 
 		 // FRONT FACE
 		 	
-		 1.00,  0.00,  0.00,
+		 1.00,  0.50,  0.50,
 		 
-		 1.00,  0.00,  0.00,
+		 1.00,  0.50,  0.50,
 		 
-		 1.00,  0.00,  0.00,
+		 1.00,  0.50,  0.50,
 
 		 	
-		 1.00,  1.00,  0.00,
+		 0.50,  1.00,  0.50,
 		 
-		 1.00,  1.00,  0.00,
+		 0.50,  1.00,  0.50,
 		 
-		 1.00,  1.00,  0.00,
+		 0.50,  1.00,  0.50,
 		 			 
 		 // TOP FACE
 		 	
-		 0.00,  0.00,  0.00,
+		 0.50,  0.50,  1.00,
 		 
-		 0.00,  0.00,  0.00,
+		 0.50,  0.50,  1.00,
 		 
-		 0.00,  0.00,  0.00,
+		 0.50,  0.50,  1.00,
 
 		 	
 		 0.50,  0.50,  0.50,
@@ -314,33 +294,9 @@ var colors = [
 		 
 		 // FRONT WALL
 
-		 0.35,  0.00,  0.75,
-		 
-		 0.35,  0.00,  0.75,
-		 
-		 0.35,  0.00,  0.75,
-
-		 	
-		 0.60,  0.35,  0.35,
-		 
-		 0.60,  0.35,  0.35,
-		 
-		 0.60,  0.35,  0.35,
 
 		 // BACK WALL
 
-		 0.45,  0.00,  0.75,
-		 
-		 0.45,  0.00,  0.75,
-		 
-		 0.45,  0.00,  0.75,
-
-		 	
-		 0.10,  0.35,  0.35,
-		 
-		 0.10,  0.35,  0.35,
-		 
-		 0.10,  0.35,  0.35,
 ];
 
 //----------------------------------------------------------------------------
@@ -456,7 +412,7 @@ function drawScene() {
 	
 	// Computing the Projection Matrix
 	
-	if( projectionType == 0 ) {
+	if( projectionType == 1 ) {
 		
 		// For now, the default orthogonal view volume
 		
@@ -478,7 +434,7 @@ function drawScene() {
 		
 		// Ensure that the model is "inside" the view volume
 		
-		pMatrix = perspective( 45, 1, 0.05, 15 );
+		pMatrix = perspective( 35, 1, 0.05, 15 );
 		
 		// Global transformation !!
 		
@@ -642,6 +598,96 @@ function setEventListeners(){
         initBuffers();
 
 	};
+
+	var mouseDown = function(e)
+	{
+		drag = true;
+		old_x = e.pageX;
+		old_y = e.pageY;
+		e.preventDefault();
+		return false;
+	}
+
+	var mouseUp = function(e)
+	{
+		drag = false;
+	}
+
+	var mouseMove = function(e)
+	{
+		if(!drag) return false;
+		var factor = 100 / document.getElementById("game-canvas").height;
+		var dY = factor * (e.pageX - old_x);
+		var dX = factor * (e.pageY - old_y);
+
+		angleXX += dX;
+		angleYY += dY;
+
+		old_x = e.pageX;
+		old_y = e.pageY;
+		e.preventDefault()
+	}
+
+	document.getElementById("game-canvas").addEventListener("mousedown", mouseDown, false);
+	document.getElementById("game-canvas").addEventListener("mouseup", mouseUp, false);
+	document.getElementById("game-canvas").addEventListener("mouseout", mouseUp, false);
+	document.getElementById("game-canvas").addEventListener("mousemove", mouseMove, false);
+
+	var released = true;
+	var last_key = '';
+	document.onkeypress = function(e)
+	{
+		console.log(e.key);
+		if(!released) return false;
+		last_key = e.key;
+		switch(e.key)
+		{
+			case 'w':
+				angleXX -= 20;
+				last_key = e.key;
+				break;
+			case 's':
+				angleXX += 20;
+				last_key = e.key;
+				break;
+			case 'a':
+				angleZZ += 20;
+				last_key = e.key;
+				break;
+			case 'd':
+				angleZZ -= 20;
+				last_key = e.key;
+				break;
+			default:
+				
+		}
+
+		released = false;
+	}
+
+	document.onkeyup = function(e) 
+	{
+		if(e.key != last_key) return false;
+		switch(last_key)
+		{
+			case 'w':
+				angleXX += 20;
+				break;
+			case 's':
+				angleXX -= 20;
+				break;
+			case 'a':
+				angleZZ -= 20;
+				break;
+			case 'd':
+				angleZZ += 20;
+				break;
+			default:
+				
+		}
+		released = true;
+		
+	}
 
 	// File loading
 	
