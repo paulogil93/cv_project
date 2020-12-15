@@ -727,10 +727,6 @@ function setEventListeners(){
 
 	var mouseMove = function(e)
 	{
-		//var sphere = sceneModels[1];
-		//var base = sceneModels[0];
-
-		//var walls = [sceneModels[2],sceneModels[3],sceneModels[4],sceneModels[5],sceneModels[6],sceneModels[7],sceneModels[8]]
 
 		if(!drag) return false;
 		var factor = 100 / document.getElementById("game-canvas").height;
@@ -769,23 +765,19 @@ function setEventListeners(){
 		switch(e.key)
 		{
 			case 'w':
-				sceneModels[0].rotAngleXX -= value;
-				sceneModels[1].rotAngleXX -= value;
+				globalAngleXX -= value;
 				last_key = e.key;
 				break;
 			case 's':
-				sceneModels[0].rotAngleXX += value;
-				sceneModels[1].rotAngleXX += value;
+				globalAngleXX += value;
 				last_key = e.key;
 				break;
 			case 'a':
-				sceneModels[0].rotAngleZZ += value;
-				sceneModels[1].rotAngleZZ += value;
+				globalAngleZZ += value;
 				last_key = e.key;
 				break;
 			case 'd':
-				sceneModels[0].rotAngleZZ -= value;
-				sceneModels[1].rotAngleZZ -= value;
+				globalAngleZZ -= value;
 				last_key = e.key;
 				break;
 			default:
@@ -804,20 +796,16 @@ function setEventListeners(){
 		switch(last_key)
 		{
 			case 'w':
-				sceneModels[0].rotAngleXX += value;
-				sceneModels[1].rotAngleXX += value;
+				globalAngleXX += value;
 				break;
 			case 's':
-				sceneModels[0].rotAngleXX -= value;
-				sceneModels[1].rotAngleXX -= value;
+				globalAngleXX -= value;
 				break;
 			case 'a':
-				sceneModels[0].rotAngleZZ -= value;
-				sceneModels[1].rotAngleZZ -= value;
+				globalAngleZZ -= value;
 				break;
 			case 'd':
-				sceneModels[0].rotAngleZZ += value;
-				sceneModels[1].rotAngleZZ += value;
+				globalAngleZZ += value;
 				break;
 			default:
 				
