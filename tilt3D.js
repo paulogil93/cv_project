@@ -21,6 +21,12 @@
 var drag = false;
 var old_x = 0, old_y = 0;
 
+var g = 9.81;
+var Vx = 0;
+var Vz = 0;
+var alphaX = 0;
+var alphaZ = 0;
+
 var gl = null; // WebGL context
 
 var shaderProgram = null;
@@ -89,6 +95,11 @@ function countFrames() {
    frameCount++;
    
    elapsedTime += (now - lastfpsTime);
+   if(hasV)
+   {
+		T += (now - lastfpsTime);
+   }
+   
 
    lastfpsTime = now;
 
@@ -407,7 +418,49 @@ function animate() {
 		if( globalRotationXX_ON) {
 			globalAngleXX += globalRotationXX_DIR * globalRotationYY_SPEED * (90 * elapsed) / 1000.0;
 		}
-		
+
+		// Physics
+
+		if(alphaZ != 0 || Vz != 0)
+		{
+			var aZ = g * Math.sin(radians(alphaZ));
+			Vz += aZ * 90 * elapsed / 15000000;
+
+			var Sx = Vz * 90 * elapsed / 1000;
+			sceneModels[1].tx += Sx;
+
+			if(Vz > 0) 
+			{
+				Vz -= 0.0001;
+			}
+			else
+			{
+				Vz += 0.0001;
+			}
+
+			if(Math.abs(Vz - 0.0001) < 0.0001) { Vz = 0; }
+		}
+
+		if(alphaX != 0 || Vx != 0)
+		{
+			var aX = g * Math.sin(radians(alphaX));
+			Vx += aX * 90 * elapsed / 15000000;
+
+			var Sz = Vx * 90 * elapsed / 1000;
+			sceneModels[1].tz += Sz;
+			sceneModels[1].ty -= Math.sin(radians(-20))*Sz;
+
+			if(Vx > 0) 
+			{
+				Vx -= 0.0001;
+			}
+			else
+			{
+				Vx += 0.0001;
+			}
+
+			if(Math.abs(Vx - 0.0001) < 0.0001) { Vx = 0; }
+		}
 
 		// For every model --- Local rotations
 		
@@ -765,18 +818,22 @@ function setEventListeners(){
 		switch(e.key)
 		{
 			case 'w':
+				alphaX -= 20;
 				globalAngleXX -= value;
 				last_key = e.key;
 				break;
 			case 's':
+				alphaX += 20;
 				globalAngleXX += value;
 				last_key = e.key;
 				break;
 			case 'a':
+				alphaZ -= 20;
 				globalAngleZZ += value;
 				last_key = e.key;
 				break;
 			case 'd':
+				alphaZ += 20;
 				globalAngleZZ -= value;
 				last_key = e.key;
 				break;
@@ -796,15 +853,19 @@ function setEventListeners(){
 		switch(last_key)
 		{
 			case 'w':
+				alphaX += 20;
 				globalAngleXX += value;
 				break;
 			case 's':
+				alphaX -= 20;
 				globalAngleXX -= value;
 				break;
 			case 'a':
+				alphaZ += 20;	
 				globalAngleZZ -= value;
 				break;
 			case 'd':
+				alphaZ -= 20;
 				globalAngleZZ += value;
 				break;
 			default:
