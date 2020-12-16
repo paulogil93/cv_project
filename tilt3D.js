@@ -75,43 +75,6 @@ var projectionType = 0;			// To allow choosing the projection type
 
 var pos_Viewer = [ 0.0, 0.0, 0.0, 1.0 ];
 
-
-//----------------------------------------------------------------------------
-//
-// NEW - To count the number of frames per second (fps)
-//
-
-var elapsedTime = 0;
-
-var frameCount = 0;
-
-var lastfpsTime = new Date().getTime();;
-
-
-function countFrames() {
-	
-   var now = new Date().getTime();
-
-   frameCount++;
-   
-   elapsedTime += (now - lastfpsTime);
-
-   lastfpsTime = now;
-
-   if(elapsedTime >= 1000) {
-	   
-       fps = frameCount;
-       
-       frameCount = 0;
-       
-       elapsedTime -= 1000;
-	   
-	   document.getElementById('fps').innerHTML = 'fps:' + fps;
-   }
-}
-
-
-
 //----------------------------------------------------------------------------
 //
 // The WebGL code
@@ -380,10 +343,7 @@ function drawScene() {
 			   mvMatrix,
 	           primitiveType );
 	}
-	           
-	// NEW - Counting the frames
 	
-	countFrames();
 }
 
 //----------------------------------------------------------------------------
