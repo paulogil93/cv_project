@@ -43,7 +43,7 @@ var globalTy = 0.0;
 var globalTz = 0.0;
 
 // The rotation angles in degrees
-var globalAngleXX = 0.0;
+var globalAngleXX = 30.0;
 var globalAngleYY = 0.0;
 var globalAngleZZ = 0.0;
 

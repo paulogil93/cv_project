@@ -36,7 +36,7 @@ function emptyModelFeatures() {
 	
 	// Rotation angles	
 	
-	this.rotAngleXX = 30.0;
+	this.rotAngleXX = 0.0;
 	
 	this.rotAngleYY = 0.0;
 	
@@ -82,7 +82,7 @@ function emptyModelFeatures() {
 
 	// Low ambient illumination
 
-	var ambient_Illumination = [ 0.3, 0.3, 0.3 ];
+	var ambient_Illumination = [ 0.5, 0.3, 0.3 ];
 	
 	// Material features
 	
@@ -403,7 +403,7 @@ sceneModels[0].sx = sceneModels[0].sy = sceneModels[0].sz = 0.60;
 
 sceneModels.push( new sphereModel( 3 ) );
 
-sceneModels[1].tx = -0.5; sceneModels[1].ty = -0.46; sceneModels[1].tz = 0.45; 
+sceneModels[1].tx = -0.5; sceneModels[1].ty = -0.21; sceneModels[1].tz = 0.45; 
 
 sceneModels[1].sx = 0.06; sceneModels[1].sy = 0.06; sceneModels[1].sz = 0.06;
 
@@ -411,7 +411,7 @@ sceneModels[1].sx = 0.06; sceneModels[1].sy = 0.06; sceneModels[1].sz = 0.06;
 
 sceneModels.push( new simpleCubeModel() );
 
-sceneModels[2].tx = -0.6; sceneModels[2].ty = -0.255; sceneModels[2].tz = 0.025;
+sceneModels[2].tx = -0.6; sceneModels[2].ty = -0.25; sceneModels[2].tz = 0.00;
 
 sceneModels[2].sx = 0.006; sceneModels[2].sy = 0.08; sceneModels[2].sz = 0.6;
 
@@ -419,7 +419,7 @@ sceneModels[2].sx = 0.006; sceneModels[2].sy = 0.08; sceneModels[2].sz = 0.6;
 
 sceneModels.push( new simpleCubeModel() );
 
-sceneModels[3].tx = 0.6; sceneModels[3].ty = -0.255; sceneModels[3].tz = 0.025;
+sceneModels[3].tx = 0.6; sceneModels[3].ty = -0.25; sceneModels[3].tz = 0.00;
 
 sceneModels[3].sx = 0.006; sceneModels[3].sy = 0.08; sceneModels[3].sz = 0.6;
 
@@ -427,7 +427,7 @@ sceneModels[3].sx = 0.006; sceneModels[3].sy = 0.08; sceneModels[3].sz = 0.6;
 
 sceneModels.push( new simpleCubeModel() );
 
-sceneModels[4].ty = 0.045; sceneModels[4].tz = -0.49;
+sceneModels[4].ty = -0.25; sceneModels[4].tz = -0.60;
 
 sceneModels[4].sx = 0.6; sceneModels[4].sy = 0.08; sceneModels[4].sz = 0.006;
 
@@ -435,7 +435,7 @@ sceneModels[4].sx = 0.6; sceneModels[4].sy = 0.08; sceneModels[4].sz = 0.006;
 
 sceneModels.push( new simpleCubeModel() );
 
-sceneModels[5].ty = -0.55; sceneModels[5].tz = 0.54;
+sceneModels[5].ty = -0.25; sceneModels[5].tz = 0.6;
 
 sceneModels[5].sx = 0.6; sceneModels[5].sy = 0.08; sceneModels[5].sz = 0.006;
 
@@ -443,7 +443,7 @@ sceneModels[5].sx = 0.6; sceneModels[5].sy = 0.08; sceneModels[5].sz = 0.006;
 
 sceneModels.push( new simpleCubeModel() );
 
-sceneModels[6].tx = -0.15; sceneModels[6].ty = -0.095; sceneModels[6].tz = -0.25;
+sceneModels[6].tx = -0.15; sceneModels[6].ty = -0.25; sceneModels[6].tz = -0.25;
 
 sceneModels[6].sx = 0.45; sceneModels[6].sy = 0.08; sceneModels[6].sz = 0.006;
 
@@ -459,6 +459,6 @@ sceneModels[7].sx = 0.45; sceneModels[7].sy = 0.08; sceneModels[7].sz = 0.006;
 
 sceneModels.push( new simpleCubeModel() );
 
-sceneModels[8].tx = -0.15; sceneModels[8].ty = -0.4; sceneModels[8].tz = 0.28;
+sceneModels[8].tx = -0.15; sceneModels[8].ty = -0.25; sceneModels[8].tz = 0.28;
 
 sceneModels[8].sx = 0.45; sceneModels[8].sy = 0.08; sceneModels[8].sz = 0.006;
