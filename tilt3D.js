@@ -95,11 +95,6 @@ function countFrames() {
    frameCount++;
    
    elapsedTime += (now - lastfpsTime);
-   if(hasV)
-   {
-		T += (now - lastfpsTime);
-   }
-   
 
    lastfpsTime = now;
 
@@ -426,10 +421,27 @@ function animate() {
 			var aZ = g * Math.sin(radians(alphaZ));
 			Vz += aZ * 90 * elapsed / 15000000;
 
+			if(sceneModels[1].tx + sceneModels[1].sx >= 0.56) 
+			{
+				Vz = -0.5 * Vz;
+				sceneModels[1].tx -= 0.01;
+			}
+
+			if(sceneModels[1].tx <= -0.55) 
+			{
+				Vz = -0.5 * Vz;
+				sceneModels[1].tx += 0.01;
+			}
+			
 			var Sx = Vz * 90 * elapsed / 1000;
 			sceneModels[1].tx += Sx;
 
-			if(Vz > 0) 
+			if(Math.abs(Vz - 0.0001) < 0.0001)
+			{
+				colision = false;
+				Vz = 0; 
+			}
+			else if(Vz > 0) 
 			{
 				Vz -= 0.0001;
 			}
@@ -437,8 +449,6 @@ function animate() {
 			{
 				Vz += 0.0001;
 			}
-
-			if(Math.abs(Vz - 0.0001) < 0.0001) { Vz = 0; }
 		}
 
 		if(alphaX != 0 || Vx != 0)
@@ -448,7 +458,6 @@ function animate() {
 
 			var Sz = Vx * 90 * elapsed / 1000;
 			sceneModels[1].tz += Sz;
-			sceneModels[1].ty -= Math.sin(radians(-20))*Sz;
 
 			if(Vx > 0) 
 			{
