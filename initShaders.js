@@ -4,7 +4,7 @@
 //
 //	Getting, compiling and linking the vertex and the fragment shaders
 //
-//  J. Madeira - October 2015
+//  J. Madeira - October 2015 / November 2015
 //
 //////////////////////////////////////////////////////////////////////////////
 
@@ -64,18 +64,36 @@ function initShaders( gl ) {
 	}
 
 	gl.useProgram(shaderProgram);
-	
+
 	// Shader input
 
-	// Vertex Coordinates 
-	
+	// Vertex Coordinates
+
 	shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "vPosition");
 	gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
 
-	// Vertex Normals 
-	
+	// Vertex Normals
+
 	shaderProgram.vertexNormalAttribute = gl.getAttribLocation(shaderProgram, "vNormal");
 	gl.enableVertexAttribArray(shaderProgram.vertexNormalAttribute);
-	
+
+	// NEW --- Texture coordinates
+
+	shaderProgram.textureCoordAttribute = gl.getAttribLocation(shaderProgram, "aTextureCoord");
+	gl.enableVertexAttribArray(shaderProgram.textureCoordAttribute);
+
+	// NEW --- Blending
+
+	shaderProgram.alphaUniform = gl.getUniformLocation(shaderProgram, "uAlpha");
+
+	shaderProgram.vertexColorUniform = gl.getUniformLocation(shaderProgram,"u_color");
+
+	// NEW --- The sampler
+
+	shaderProgram.samplerUniform = gl.getUniformLocation(shaderProgram, "uSampler");
+
+
+
 	return shaderProgram;
 }
+
