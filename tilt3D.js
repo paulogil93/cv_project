@@ -47,11 +47,11 @@ var globalSz = 0.117;
 
 // Animation controls
 var globalRotationXX_ON = 0;
-var globalRotationXX_DIR = 0;
+var globalRotationXX_DIR = 1;
 var globalRotationXX_SPEED = 1;
 
 var globalRotationYY_ON = 0;
-var globalRotationYY_DIR = 0;
+var globalRotationYY_DIR = 1;
 var globalRotationYY_SPEED = 1;
 
 var globalRotationZZ_ON = 0;
@@ -702,6 +702,94 @@ function tick() {
 //----------------------------------------------------------------------------
 
 function setEventListeners() {
+
+    // Button events
+
+    document.getElementById("XX-on-off-button").onclick = function(){
+
+    	// Switching on / off
+
+    	// For every model
+
+        if( globalRotationXX_ON) {
+
+            globalRotationXX_ON = false;
+        }
+        else {
+            globalRotationXX_ON = true;
+        }	
+    };
+
+    document.getElementById("XX-direction-button").onclick = function(){
+
+    	// Switching the direction
+
+    	// For every model
+
+        if( globalRotationXX_DIR == 1 ) {
+
+            globalRotationXX_DIR = -1;
+        }
+        else {
+            globalRotationXX_DIR = 1;
+        }	
+    };      
+
+    document.getElementById("XX-slower-button").onclick = function(){
+
+    	// For every model
+
+    	globalRotationXX_SPEED *= 0.75; 
+    };      
+
+    document.getElementById("XX-faster-button").onclick = function(){
+
+        // For every model
+        
+    	globalRotationXX_SPEED *= 1.25; 
+    };      
+
+    document.getElementById("YY-on-off-button").onclick = function(){
+
+    	// Switching on / off
+
+    	// For every model
+    	
+        if( globalRotationYY_ON ) {
+
+            globalRotationYY_ON = false;
+        }
+        else {
+            globalRotationYY_ON = true;
+        }
+    };
+
+    document.getElementById("YY-direction-button").onclick = function(){
+
+    	// Switching the direction
+
+    	// For every model
+
+        if( globalRotationYY_DIR == 1 ) {
+
+            globalRotationYY_DIR = -1;
+        }
+        else {
+            globalRotationYY_DIR = 1;
+        }	
+    };      
+
+    document.getElementById("YY-slower-button").onclick = function(){
+
+    	// For every model
+    	globalRotationYY_SPEED *= 0.75; 
+    };      
+
+    document.getElementById("YY-faster-button").onclick = function(){
+
+    	// For every model
+        globalRotationYY_SPEED *= 1.25; 
+    };
 
     // Dropdown list
 
