@@ -12,6 +12,8 @@ var shaderProgram = null;
 var drag = false;
 var old_x = 0, old_y = 0;
 
+
+// Physics vars
 var g = 9.81;
 var Vx = 0;
 var Vz = 0;
@@ -91,8 +93,6 @@ function countFrames() {
         document.getElementById('fps').innerHTML = 'fps:' + fps;
     }
 }
-
-
 
 //----------------------------------------------------------------------------
 //
@@ -646,6 +646,7 @@ function animate() {
             if(sceneModels[1].tx >= -0.47 && sceneModels[1].tx <= -0.38)
             {
                 alert("Game over! Congratulations!");
+                window.location.reload();
                 
             }
         }
@@ -704,45 +705,11 @@ function setEventListeners() {
 
     // Dropdown list
 
-    var projection = document.getElementById("projection-selection");
+    var restart = document.getElementById("restart-button");
 
-    projection.addEventListener("click", function () {
+    restart.addEventListener("click", function () {
 
-        // Getting the selection
-
-        var p = projection.selectedIndex;
-
-        switch (p) {
-
-            case 0: projectionType = 0;
-                break;
-
-            case 1: projectionType = 1;
-                break;
-        }
-    });
-
-    // Dropdown list
-
-    var list = document.getElementById("rendering-mode-selection");
-
-    list.addEventListener("click", function () {
-
-        // Getting the selection
-
-        var mode = list.selectedIndex;
-
-        switch (mode) {
-
-            case 0: primitiveType = gl.TRIANGLES;
-                break;
-
-            case 1: primitiveType = gl.LINE_LOOP;
-                break;
-
-            case 2: primitiveType = gl.POINTS;
-                break;
-        }
+        window.location.reload();
     });
 
     // ----------------------------------------------------------------------
