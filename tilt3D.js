@@ -445,7 +445,7 @@ function animate() {
         }
 
         if (globalRotationXX_ON) {
-            globalAngleXX += globalRotationXX_DIR * globalRotationYY_SPEED * (90 * elapsed) / 1000.0;
+            globalAngleXX += globalRotationXX_DIR * globalRotationXX_SPEED * (90 * elapsed) / 1000.0;
         }
 
         // Physics
@@ -713,10 +713,10 @@ function setEventListeners() {
 
         if( globalRotationXX_ON) {
 
-            globalRotationXX_ON = false;
+            globalRotationXX_ON = 0;
         }
         else {
-            globalRotationXX_ON = true;
+            globalRotationXX_ON = 1;
         }	
     };
 
@@ -757,10 +757,10 @@ function setEventListeners() {
     	
         if( globalRotationYY_ON ) {
 
-            globalRotationYY_ON = false;
+            globalRotationYY_ON = 0;
         }
         else {
-            globalRotationYY_ON = true;
+            globalRotationYY_ON = 1;
         }
     };
 
